@@ -28,6 +28,7 @@
 将$u^{n+\frac{1}{2}}_i$在时间步n+1处向后展开$$ u^{n+\frac{1}{2}}_i=u^{n+1}_i-\dfrac{\partial u^{n+1}_i}{\partial t}\dfrac{\Delta t}{2}+\dfrac{\partial^2 u^{n+1}_i}{\partial t^2}\dfrac{\Delta t^2}{2!\cdot 2^2}+o(\Delta t^3). \tag{11} $$ 得到$$ \dfrac{\partial u^n_i}{\partial t}=2\dfrac{u^{n+\frac{1}{2}}_i-u^n_i}{\Delta t}+\dfrac{\partial^2 u^n_i}{\partial t^2}\dfrac{\Delta t}{2!\cdot 2}+o(\Delta t^2) \tag{12}$$
 得到离散方程$$ 2\dfrac{u^{n+1}_i-u^{n+\frac{1}{2}}_i}{\Delta t}+\dfrac{\partial^2 u^n_i}{\partial t^2}\dfrac{\Delta t}{2!\cdot 2}+o(\Delta t^2)=\alpha \dfrac{u^{n+1}_{i+1}-2u^{n+1}_i+u^{n+1}_{i-1}}{\Delta x^2}+o(\Delta x^2). \tag{13}$$
 将(10)和(13)两式相加，得到Crank-Nicolson格式$$ \dfrac{u^{n+1}_i-u^n_i}{\Delta t}=\alpha(\dfrac{u^n_{i+1}-2u^n_i+u^n_{i-1}}{\Delta x^2}+\dfrac{u^{n+1}_{i+1}-2u^{n+1}_i+u^{n+1}_{i-1}}{\Delta x^2}) \tag{14}$$易知CN格式在时间和空间上均为二阶精度，且为隐式格式。
+令$\beta = \dfrac{\alpha \Delta t}{\Delta x^2}$，移项可得$$-\dfrac{\beta}{2} u^{n+1}_{i-1}+(1+\beta)u^{n+1}_i-\dfrac{\beta}{2}u^{n+1}_{i+1}=\dfrac{\beta}{2} u^{n}_{i-1}+(1-\beta)u^{n}_i+\dfrac{\beta}{2}u^{n}_{i+1} \tag{15}$$
 
 # ↓ TODO ↓
 
