@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{9ED3CE20-8A3D-4C2E-A2B2-56A948705FED}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_1D_Heat_Equation_CN", "1D_Heat_Equation_CN\1D_Heat_Equation_CN.vcxproj", "{70D566E5-562F-46DE-A5C4-6B3F8BD6767B}"
