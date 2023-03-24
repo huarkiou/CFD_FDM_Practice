@@ -4,8 +4,7 @@
 #include <cstdio>
 #include <vector>
 
-/* CN in time Central Space
-* 时间上2阶隐式Crank-Nicolson，空间上中心差分
+/* Implicit Compact Pade Scheme
 */
 
 int main(void) {
@@ -21,7 +20,6 @@ int main(void) {
     long long nt = static_cast<long long>(t / dt);
 
     double alpha = 1.0 / (M_PI * M_PI);
-    double beta = alpha * dt / (dx * dx);
 
     // 初始化
     std::vector<double> x(nx + 1), un_cur(nx + 1), un_prev(nx + 1), u_e(nx + 1), error(nx + 1);
@@ -45,13 +43,16 @@ int main(void) {
         // 差分格式
         a[0] = 0; b[0] = 1; c[0] = 0; d[0] = 0;
         for (long long i = 1; i < nx; ++i) {
-            a[i] = -beta / 2; b[i] = 1 + beta; c[i] = -beta / 2; d[i] = beta / 2 * un_prev[i - 1] + (1 - beta) * un_prev[i] + beta / 2 * un_prev[i + 1];
+            a[i] = 12 / (dx * dx) - 2 / (alpha * dt);
+            b[i] = -24 / (dx * dx) - 20 / (alpha * dt);
+            c[i] = 12 / (dx * dx) - 2 / (alpha * dt);
+            d[i] = -2 / (alpha * dt) * (un_prev[i - 1] + 10 * un_prev[i] + un_prev[i + 1]) - 12 / (dx * dx) * (un_prev[i - 1] - 2 * un_prev[i] + un_prev[i + 1]);
         }
         a[nx] = 0; b[nx] = 1; c[nx] = 0; d[nx] = 0;
 
         // Thomas algorithm
         double bet = b[0];
-        un_cur[0] = d[0] / bet; // ((1 - beta) * un_prev[0] + beta / 2 * un_prev[1]) / (1 + beta);
+        un_cur[0] = d[0] / bet;
         for (long long i = 1; i < nx + 1; ++i) {
             q[i] = c[i - 1] / bet;
             bet = b[i] - q[i] * a[i];

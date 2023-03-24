@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_1D_Heat_Equation_CN", "1D_Heat_Equation_CN\1D_Heat_Equation_CN.vcxproj", "{70D566E5-562F-46DE-A5C4-6B3F8BD6767B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_1D_Heat_Equation_ICP", "04_1D_Heat_Equation_ICP\04_1D_Heat_Equation_ICP.vcxproj", "{A2FC5F71-7BA6-428C-B5CF-1D255CCD987C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -47,6 +49,14 @@ Global
 		{70D566E5-562F-46DE-A5C4-6B3F8BD6767B}.Release|x64.Build.0 = Release|x64
 		{70D566E5-562F-46DE-A5C4-6B3F8BD6767B}.Release|x86.ActiveCfg = Release|Win32
 		{70D566E5-562F-46DE-A5C4-6B3F8BD6767B}.Release|x86.Build.0 = Release|Win32
+		{A2FC5F71-7BA6-428C-B5CF-1D255CCD987C}.Debug|x64.ActiveCfg = Debug|x64
+		{A2FC5F71-7BA6-428C-B5CF-1D255CCD987C}.Debug|x64.Build.0 = Debug|x64
+		{A2FC5F71-7BA6-428C-B5CF-1D255CCD987C}.Debug|x86.ActiveCfg = Debug|Win32
+		{A2FC5F71-7BA6-428C-B5CF-1D255CCD987C}.Debug|x86.Build.0 = Debug|Win32
+		{A2FC5F71-7BA6-428C-B5CF-1D255CCD987C}.Release|x64.ActiveCfg = Release|x64
+		{A2FC5F71-7BA6-428C-B5CF-1D255CCD987C}.Release|x64.Build.0 = Release|x64
+		{A2FC5F71-7BA6-428C-B5CF-1D255CCD987C}.Release|x86.ActiveCfg = Release|Win32
+		{A2FC5F71-7BA6-428C-B5CF-1D255CCD987C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
