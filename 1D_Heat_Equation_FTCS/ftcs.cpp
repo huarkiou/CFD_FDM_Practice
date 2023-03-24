@@ -62,7 +62,7 @@ int main(void) {
     double rms_error = 0, max_error = 0;
     for (long long i = 0; i < nx + 1; ++i)
     {
-        rms_error = pow(un_cur[i] - u_e[i], 2);
+        rms_error = rms_error + pow(un_cur[i] - u_e[i], 2);
         if (max_error < abs(un_cur[i] - u_e[i])) {
             max_error = abs(un_cur[i] - u_e[i]);
         }

@@ -43,19 +43,21 @@ int main(void) {
     std::vector<double> a(nx + 1), b(nx + 1), c(nx + 1), d(nx + 1), q(nx + 1);
     for (long long k = 0; k < nt + 1; ++k) {
         // 差分格式
-        a[0] = 0; b[0] = 1 + beta; c[0] = -beta / 2; d[0] = (1 - beta) * un_prev[0] + beta / 2 * un_prev[1];
+        a[0] = 0; b[0] = 1; c[0] = 0; d[0] = 0;
         for (long long i = 1; i < nx; ++i) {
             a[i] = -beta / 2; b[i] = 1 + beta; c[i] = -beta / 2; d[i] = beta / 2 * un_prev[i - 1] + (1 - beta) * un_prev[i] + beta / 2 * un_prev[i + 1];
         }
-        a[nx] = -beta / 2; b[nx] = 1 + beta; c[nx] = -beta / 2; d[nx] = beta / 2 * un_prev[nx - 1] + (1 - beta) * un_prev[nx];
+        a[nx] = 0; b[nx] = 1; c[nx] = 0; d[nx] = 0;
 
-        un_cur[0] = ((1 - beta) * un_prev[0] + beta / 2 * un_prev[1]) / (1 + beta);
+        // Thomas algorithm
+        double bet = b[0];
+        un_cur[0] = d[0] / bet; // ((1 - beta) * un_prev[0] + beta / 2 * un_prev[1]) / (1 + beta);
         for (long long i = 1; i < nx + 1; ++i) {
-            q[i] = c[i - 1] / b[i - 1];
-            b[i] = b[i] - q[i] * a[i];
-            un_cur[i] = (d[i] - a[i] * un_cur[i - 1]) / b[i];
+            q[i] = c[i - 1] / bet;
+            bet = b[i] - q[i] * a[i];
+            un_cur[i] = (d[i] - a[i] * un_cur[i - 1]) / bet;
         }
-        for (long long i = nx - 1; i > 0; --i) {
+        for (long long i = nx - 1; i >= 0; --i) {
             un_cur[i] = un_cur[i] - q[i + 1] * un_cur[i + 1];
         }
         // 边界条件
@@ -74,7 +76,7 @@ int main(void) {
     double rms_error = 0, max_error = 0;
     for (long long i = 0; i < nx + 1; ++i)
     {
-        rms_error = pow(un_cur[i] - u_e[i], 2);
+        rms_error = rms_error + pow(un_cur[i] - u_e[i], 2);
         if (max_error < abs(un_cur[i] - u_e[i])) {
             max_error = abs(un_cur[i] - u_e[i]);
         }
