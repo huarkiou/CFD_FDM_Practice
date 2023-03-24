@@ -32,13 +32,6 @@ int main(void) {
     }
     un_cur[0] = 0; un_cur[nx] = 0;
 
-    std::vector<double> a(nx + 1), b(nx + 1), c(nx + 1), d(nx + 1), q(nx + 1);
-    a[0] = 0; b[0] = 1 + beta; c[0] = -beta / 2; d[0] = (1 - beta) * un_prev[0] + beta / 2 * un_prev[1];
-    for (long long i = 1; i < nx; ++i) {
-        a[i] = beta / 2; b[i] = 1 + beta; c[i] = -beta / 2; d[i] = beta / 2 * un_prev[i - 1] + (1 - beta) * un_prev[i] + beta / 2 * un_prev[i + 1];
-    }
-    a[nx] = beta / 2; b[nx] = 1 + beta; c[nx] = -beta / 2; d[nx] = beta / 2 * un_prev[nx - 1] + (1 - beta) * un_prev[nx];
-
     // 打开输出文件
     FILE* fp = fopen("./output.txt", "w");
     if (fp == NULL) {
@@ -47,11 +40,23 @@ int main(void) {
     }
 
     // 计算
+    std::vector<double> a(nx + 1), b(nx + 1), c(nx + 1), d(nx + 1), q(nx + 1);
     for (long long k = 0; k < nt + 1; ++k) {
         // 差分格式
-        un_cur[0] = ((1 - beta) * un_prev[0] + beta / 2 * un_prev[1]) / (1 + beta);
+        a[0] = 0; b[0] = 1 + beta; c[0] = -beta / 2; d[0] = (1 - beta) * un_prev[0] + beta / 2 * un_prev[1];
         for (long long i = 1; i < nx; ++i) {
+            a[i] = -beta / 2; b[i] = 1 + beta; c[i] = -beta / 2; d[i] = beta / 2 * un_prev[i - 1] + (1 - beta) * un_prev[i] + beta / 2 * un_prev[i + 1];
+        }
+        a[nx] = -beta / 2; b[nx] = 1 + beta; c[nx] = -beta / 2; d[nx] = beta / 2 * un_prev[nx - 1] + (1 - beta) * un_prev[nx];
 
+        un_cur[0] = ((1 - beta) * un_prev[0] + beta / 2 * un_prev[1]) / (1 + beta);
+        for (long long i = 1; i < nx + 1; ++i) {
+            q[i] = c[i - 1] / b[i - 1];
+            b[i] = b[i] - q[i] * a[i];
+            un_cur[i] = (d[i] - a[i] * un_cur[i - 1]) / b[i];
+        }
+        for (long long i = nx - 1; i > 0; --i) {
+            un_cur[i] = un_cur[i] - q[i + 1] * un_cur[i + 1];
         }
         // 边界条件
         un_cur[0] = 0; un_cur[nx] = 0;
